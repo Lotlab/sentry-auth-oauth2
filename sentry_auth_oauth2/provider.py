@@ -17,13 +17,19 @@ class GenericOAuth2Provider(OAuth2Provider):
     key = 'owl'
     access_token_url = ACCESS_TOKEN_URL
     authorize_url = AUTHORIZE_URL
-    name = 'OWL'
+    name = 'Generic OAuth2'
     client_id = CLIENT_ID
     client_secret = CLIENT_SECRET
 
     def __init__(self, org=None, **config):
         super(GenericOAuth2Provider, self).__init__(**config)
         self.org = org
+
+    def get_client_id(self):
+        return client_id
+
+    def get_client_secret(self):
+        return client_secret
 
     def get_auth_pipeline(self):
         return [
