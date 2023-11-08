@@ -2,7 +2,7 @@ from requests.exceptions import RequestException
 from sentry import http
 from sentry.utils import json
 
-from .constants import API_DOMAIN
+from .constants import USER_INFO_URL
 
 
 class GenericApiError(Exception):
@@ -28,7 +28,7 @@ class GenericClient(object):
         }
 
         try:
-            req = self.http.get('https://{0}/{1}'.format(API_DOMAIN, path.lstrip('/')),
+            req = self.http.get(path,
                 params=params,
                 headers=headers,
             )
@@ -39,5 +39,5 @@ class GenericClient(object):
         return json.loads(req.content)
 
     def get_user(self, access_token):
-        return self._request('/user/me', access_token)
+        return self._request(USER_INFO_URL, access_token)
 
